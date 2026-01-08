@@ -275,6 +275,10 @@ pub const COLOR_DATA: Colors = [
         ("Q7", BROWN_700),
         ("Q8", BROWN_800),
         ("Q9", BROWN_900),
+        ("QA", BROWN_A100),
+        ("QB", BROWN_A200),
+        ("QC", BROWN_A400),
+        ("QD", BROWN_A700),
     ],
     &[
         ("R0", GREY_50),
@@ -287,6 +291,10 @@ pub const COLOR_DATA: Colors = [
         ("R7", GREY_700),
         ("R8", GREY_800),
         ("R9", GREY_900),
+        ("RA", GREY_A100),
+        ("RB", GREY_A200),
+        ("RC", GREY_A400),
+        ("RD", GREY_A700),
     ],
     &[
         ("S0", BLUE_GREY_50),
@@ -299,5 +307,9 @@ pub const COLOR_DATA: Colors = [
         ("S7", BLUE_GREY_700),
         ("S8", BLUE_GREY_800),
         ("S9", BLUE_GREY_900),
+        ("SA", BLUE_GREY_A100),
+        ("SB", BLUE_GREY_A200),
+        ("SC", BLUE_GREY_A400),
+        ("SD", BLUE_GREY_A700),
     ],
 ];

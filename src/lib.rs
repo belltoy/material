@@ -548,6 +548,14 @@ pub mod colors {
     pub const BROWN_800: HexColor = HexColor("#4e342e");
     /// <span style="color:#3e2723">&#9632;</span> (#3e2723)
     pub const BROWN_900: HexColor = HexColor("#3e2723");
+    /// <span style="color:#d7ccc8">&#9632;</span> (#d7ccc8)
+    pub const BROWN_A100: HexColor = HexColor("#d7ccc8");
+    /// <span style="color:#bcaaa4">&#9632;</span> (#bcaaa4)
+    pub const BROWN_A200: HexColor = HexColor("#bcaaa4");
+    /// <span style="color:#8d6e63">&#9632;</span> (#8d6e63)
+    pub const BROWN_A400: HexColor = HexColor("#8d6e63");
+    /// <span style="color:#5d4037">&#9632;</span> (#5d4037)
+    pub const BROWN_A700: HexColor = HexColor("#5d4037");
 
     /// <span style="color:#fafafa">&#9632;</span> (#fafafa)
     pub const GREY_50: HexColor = HexColor("#fafafa");
@@ -569,6 +577,14 @@ pub mod colors {
     pub const GREY_800: HexColor = HexColor("#424242");
     /// <span style="color:#212121">&#9632;</span> (#212121)
     pub const GREY_900: HexColor = HexColor("#212121");
+    /// <span style="color:#f5f5f5">&#9632;</span> (#f5f5f5)
+    pub const GREY_A100: HexColor = HexColor("#f5f5f5");
+    /// <span style="color:#eeeeee">&#9632;</span> (#eeeeee)
+    pub const GREY_A200: HexColor = HexColor("#eeeeee");
+    /// <span style="color:#bdbdbd">&#9632;</span> (#bdbdbd)
+    pub const GREY_A400: HexColor = HexColor("#bdbdbd");
+    /// <span style="color:#616161">&#9632;</span> (#616161)
+    pub const GREY_A700: HexColor = HexColor("#616161");
 
     /// <span style="color:#eceff1">&#9632;</span> (#eceff1)
     pub const BLUE_GREY_50: HexColor = HexColor("#eceff1");
@@ -590,6 +606,14 @@ pub mod colors {
     pub const BLUE_GREY_800: HexColor = HexColor("#37474f");
     /// <span style="color:#263238">&#9632;</span> (#263238)
     pub const BLUE_GREY_900: HexColor = HexColor("#263238");
+    /// <span style="color:#cfd8dc">&#9632;</span> (#cfd8dc)
+    pub const BLUE_GREY_A100: HexColor = HexColor("#cfd8dc");
+    /// <span style="color:#b0bec5">&#9632;</span> (#b0bec5)
+    pub const BLUE_GREY_A200: HexColor = HexColor("#b0bec5");
+    /// <span style="color:#78909c">&#9632;</span> (#78909c)
+    pub const BLUE_GREY_A400: HexColor = HexColor("#78909c");
+    /// <span style="color:#455a64">&#9632;</span> (#455a64)
+    pub const BLUE_GREY_A700: HexColor = HexColor("#455a64");
 
     /// <span style="color:#000000">&#9632;</span> (#000000)
     pub const BLACK: HexColor = HexColor("#000000");

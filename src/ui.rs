@@ -43,9 +43,6 @@ pub fn ui(f: &mut Frame, app: &App) {
         pos.0 += sq_width;
     }
 
-    // last colors are missing 4 variants
-    pos.1 += sq_height * 4;
-
     f.render_widget(
         Block::default()
             .borders(Borders::ALL)
