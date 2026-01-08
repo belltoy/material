@@ -1,6 +1,7 @@
 use crate::color_data::{Colors, COLOR_DATA};
 use clipboard::ClipboardContext;
 use clipboard::ClipboardProvider;
+use material::HexColor;
 
 pub struct App {
     pub message: String,
@@ -48,5 +49,12 @@ impl App {
                 }
             })
         });
+    }
+
+    pub fn select_color(&mut self, name: &str, hex_color: HexColor) {
+        let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
+        ctx.set_contents(hex_color.to_string()).unwrap();
+        self.input = name.to_string();
+        self.message = format!("{} copied to clipboard!", hex_color);
     }
 }

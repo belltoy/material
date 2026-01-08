@@ -1,5 +1,6 @@
 use crate::app::App;
 use crate::color_data::{N_COLORS, N_VARIANTS};
+use material::HexColor;
 use ratatui::{
     layout::{Alignment, Rect},
     style::{Color, Style},
@@ -13,7 +14,7 @@ pub fn ui(f: &mut Frame, app: &App) {
 
     // Place left & top centered starting positions
     let left = (f.size().width - (N_COLORS as u16 * sq_width)) / 2;
-    let top = (f.size().height - (N_VARIANTS as u16 * sq_height + 2)) / 2;
+    let top = (f.size().height - (N_VARIANTS as u16 * sq_height + 5)) / 2;
 
     let mut pos = (left, top);
 
@@ -21,7 +22,7 @@ pub fn ui(f: &mut Frame, app: &App) {
         pos.1 = top;
         for (i, color_var) in color.iter().enumerate() {
             let bg_color = color_var.1.into();
-            let text_color = if i < 5 || i > 9 {
+            let text_color = if i < 5 || (i > 9 && i < 12) {
                 Color::Black
             } else {
                 Color::White
@@ -49,20 +50,44 @@ pub fn ui(f: &mut Frame, app: &App) {
             .border_type(BorderType::Rounded)
             .title("Type the color code to copy. Press Esc to exit.")
             .title_alignment(Alignment::Center),
-        Rect::new(left, pos.1, sq_width * N_COLORS as u16, sq_height + 3),
+        Rect::new(left, pos.1, sq_width * N_COLORS as u16, 5),
     );
 
     f.render_widget(
         Block::default()
             .title(String::from(&app.input.to_uppercase()))
             .title_alignment(Alignment::Center),
-        Rect::new(left, pos.1 + 1, sq_width * N_COLORS as u16, sq_height),
+        Rect::new(left, pos.1 + 1, sq_width * N_COLORS as u16, 1),
     );
 
     f.render_widget(
         Block::default()
             .title(String::from(&app.message))
             .title_alignment(Alignment::Center),
-        Rect::new(left, pos.1 + 2, sq_width * N_COLORS as u16, sq_height),
+        Rect::new(left, pos.1 + 2, sq_width * N_COLORS as u16, 1),
     );
+}
+
+pub fn get_color_from_coordinator(f: &Frame, app: &App, row: u16, col: u16) -> Option<(String, HexColor)> {
+    let sq_height = (f.size().height - 5) / (N_VARIANTS as u16);
+    let sq_width = f.size().width / (N_COLORS as u16);
+
+    // Place left & top centered starting positions
+    let left = (f.size().width - (N_COLORS as u16 * sq_width)) / 2;
+    let top = (f.size().height - (N_VARIANTS as u16 * sq_height + 5)) / 2;
+
+    let mut pos = (left, top);
+
+    for color in app.colors {
+        pos.1 = top;
+        for (_, color_var) in color.iter().enumerate() {
+            if row >= pos.1 && row < pos.1 + sq_height && col >= pos.0 && col < pos.0 + sq_width {
+                return Some((color_var.0.to_owned(), color_var.1));
+            }
+            pos.1 += sq_height;
+        }
+        pos.0 += sq_width;
+    }
+
+    None
 }

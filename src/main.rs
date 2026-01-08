@@ -6,7 +6,7 @@ use app::App;
 use ui::ui;
 
 use crossterm::{
-    event::{read as read_event, Event, KeyCode},
+    event::{read as read_event, EnableMouseCapture, Event, KeyCode, KeyEvent, MouseButton, MouseEvent, MouseEventKind},
     execute,
     terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
 };
@@ -15,6 +15,8 @@ use ratatui::{
     Terminal,
 };
 use std::{error::Error, io};
+
+use crate::ui::get_color_from_coordinator;
 
 fn main() -> Result<(), Box<dyn Error>> {
     // setup terminal
@@ -28,7 +30,11 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     // restore terminal
     disable_raw_mode()?;
-    execute!(terminal.backend_mut(), LeaveAlternateScreen)?;
+    execute!(
+        terminal.backend_mut(),
+        LeaveAlternateScreen,
+        EnableMouseCapture,
+    )?;
 
     if let Err(err) = res {
         println!("{:?}", err);
@@ -43,15 +49,20 @@ fn run_app<B: Backend>(terminal: &mut Terminal<B>) -> io::Result<()> {
     loop {
         terminal.draw(|f| ui(f, &app))?;
 
-        if let Event::Key(key) = read_event()? {
-            match key.code {
-                KeyCode::Esc => {
-                    return Ok(());
-                }
-                KeyCode::Backspace => app.delete_input(),
-                KeyCode::Char(c) => app.handle_input(c),
-                _ => {}
+        match read_event()? {
+            Event::Key(KeyEvent{code: KeyCode::Esc, ..}) => {
+                return Ok(());
             }
+            Event::Key(KeyEvent{code: KeyCode::Backspace, ..}) => app.delete_input(),
+            Event::Key(KeyEvent{code: KeyCode::Char(c), ..}) => app.handle_input(c),
+            Event::Mouse(e @ MouseEvent{kind: MouseEventKind::Down(MouseButton::Left), ..}) => {
+                let frame = terminal.get_frame();
+                let color = get_color_from_coordinator(&frame, &app, e.row, e.column);
+                if let Some(color) = color {
+                    app.select_color(&color.0, color.1);
+                }
+            }
+            _ => {}
         }
     }
 }
