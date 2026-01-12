@@ -6,9 +6,12 @@ use app::App;
 use ui::ui;
 
 use crossterm::{
-    event::{read as read_event, EnableMouseCapture, Event, KeyCode, KeyEvent, MouseButton, MouseEvent, MouseEventKind},
+    event::{
+        read as read_event, DisableMouseCapture, EnableMouseCapture, Event, KeyCode, KeyEvent,
+        MouseButton, MouseEvent, MouseEventKind,
+    },
     execute,
-    terminal::{disable_raw_mode, LeaveAlternateScreen},
+    terminal::LeaveAlternateScreen,
 };
 use ratatui::{
     backend::Backend,
@@ -20,20 +23,24 @@ use crate::ui::get_color_from_coordinator;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let mut terminal = ratatui::init();
+    execute!(
+        terminal.backend_mut(),
+        EnableMouseCapture,
+    )?;
 
     let res = run_app(&mut terminal);
 
-    // restore terminal
-    disable_raw_mode()?;
     execute!(
         terminal.backend_mut(),
         LeaveAlternateScreen,
-        EnableMouseCapture,
+        DisableMouseCapture,
     )?;
 
     if let Err(err) = res {
         println!("{:?}", err);
     }
+
+    ratatui::restore();
 
     Ok(())
 }
