@@ -8,10 +8,10 @@ use ui::ui;
 use crossterm::{
     event::{read as read_event, EnableMouseCapture, Event, KeyCode, KeyEvent, MouseButton, MouseEvent, MouseEventKind},
     execute,
-    terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
+    terminal::{disable_raw_mode, LeaveAlternateScreen},
 };
 use ratatui::{
-    backend::{Backend, CrosstermBackend},
+    backend::Backend,
     Terminal,
 };
 use std::{error::Error, io};
@@ -19,12 +19,7 @@ use std::{error::Error, io};
 use crate::ui::get_color_from_coordinator;
 
 fn main() -> Result<(), Box<dyn Error>> {
-    // setup terminal
-    enable_raw_mode()?;
-    let mut stdout = io::stdout();
-    execute!(stdout, EnterAlternateScreen)?;
-    let backend = CrosstermBackend::new(stdout);
-    let mut terminal = Terminal::new(backend)?;
+    let mut terminal = ratatui::init();
 
     let res = run_app(&mut terminal);
 
@@ -43,7 +38,10 @@ fn main() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-fn run_app<B: Backend>(terminal: &mut Terminal<B>) -> io::Result<()> {
+fn run_app<B: Backend>(terminal: &mut Terminal<B>) -> Result<(), <B as Backend>::Error>
+where
+    <B as Backend>::Error: From<io::Error>,
+{
     let mut app = App::new();
 
     loop {

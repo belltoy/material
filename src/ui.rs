@@ -9,12 +9,12 @@ use ratatui::{
 };
 
 pub fn ui(f: &mut Frame, app: &App) {
-    let sq_height = (f.size().height - 5) / (N_VARIANTS as u16);
-    let sq_width = f.size().width / (N_COLORS as u16);
+    let sq_height = (f.area().height - 5) / (N_VARIANTS as u16);
+    let sq_width = f.area().width / (N_COLORS as u16);
 
     // Place left & top centered starting positions
-    let left = (f.size().width - (N_COLORS as u16 * sq_width)) / 2;
-    let top = (f.size().height - (N_VARIANTS as u16 * sq_height + 5)) / 2;
+    let left = (f.area().width - (N_COLORS as u16 * sq_width)) / 2;
+    let top = (f.area().height - (N_VARIANTS as u16 * sq_height + 5)) / 2;
 
     let mut pos = (left, top);
 
@@ -69,12 +69,12 @@ pub fn ui(f: &mut Frame, app: &App) {
 }
 
 pub fn get_color_from_coordinator(f: &Frame, app: &App, row: u16, col: u16) -> Option<(String, HexColor)> {
-    let sq_height = (f.size().height - 5) / (N_VARIANTS as u16);
-    let sq_width = f.size().width / (N_COLORS as u16);
+    let sq_height = (f.area().height - 5) / (N_VARIANTS as u16);
+    let sq_width = f.area().width / (N_COLORS as u16);
 
     // Place left & top centered starting positions
-    let left = (f.size().width - (N_COLORS as u16 * sq_width)) / 2;
-    let top = (f.size().height - (N_VARIANTS as u16 * sq_height + 5)) / 2;
+    let left = (f.area().width - (N_COLORS as u16 * sq_width)) / 2;
+    let top = (f.area().height - (N_VARIANTS as u16 * sq_height + 5)) / 2;
 
     let mut pos = (left, top);
 
